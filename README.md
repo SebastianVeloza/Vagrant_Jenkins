@@ -43,7 +43,7 @@ Para obtener la contraseña inicial de Jenkins:
 
 la puedes ver en el ultimo log al ejecutar el vagrant up
 
-##🧰 Comandos útiles
+## 🧰 Comandos útiles
 | Comando                 | Descripción                                      |
 |-------------------------|--------------------------------------------------|
 | `vagrant up`           | Inicia la VM y ejecuta el provisionamiento       |
@@ -53,7 +53,7 @@ la puedes ver en el ultimo log al ejecutar el vagrant up
 | `vagrant reload --provision` | Reinicia y reprovisiona la VM             |
 
 
-##🧪 Probado en
+## 🧪 Probado en
 SO Host: Ubuntu 22.04 / Windows 11
 
 Vagrant 2.4+
