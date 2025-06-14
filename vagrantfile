@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "bento/ubuntu-22.04"
+    config.vm.network "private_network", ip: "192.168.56.20"
+    config.vm.network "forwarded_port", guest: 8080, host: 8089
+  
+    # Instalación de Ansible y ejecución del playbook 
+    config.vm.provision "shell", inline: <<-SHELL
+      sudo apt-get update
+      sudo apt-get install -y software-properties-common 
+      sudo apt-add-repository --yes --update ppa:ansible/ansible
+      sudo apt-get install -y ansible
+      pip3 install docker
+      ansible-galaxy collection install community.docker
+      ansible-playbook /vagrant/ansible/playbook.yml -i /vagrant/ansible/inventory 
+      echo "Obteniendo contraseña de administrador de Jenkins..."
+      if docker ps | grep jenkins; then
+        sleep 30
+        sudo docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+      else
+        echo 'Jenkins no está corriendo.'
+      fi
+ 
+    SHELL
+  end
+  

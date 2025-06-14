@@ -1,0 +1,22 @@
+- name: Crear red personalizada para Jenkins
+  docker_network:
+    name: jenkins-net
+    state: present
+
+- name: Crear volumen para datos persistentes
+  docker_volume:
+    name: jenkins_data
+
+- name: Ejecutar contenedor de Jenkins
+  docker_container:
+    name: jenkins
+    image: jenkins/jenkins:lts
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    networks:
+      - name: jenkins-net

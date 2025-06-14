@@ -1,0 +1,2 @@
+[webserver]
+thisnode ansible_connection=local

@@ -1,0 +1,31 @@
+- name: Instalar paquetes necesarios para Docker
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: present
+
+- name: Agregar clave GPG oficial de Docker
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Agregar repositorio de Docker
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Instalar Docker Engine
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+
+- name: Asegurarse de que Docker esté corriendo
+  service:
+    name: docker
+    state: started
+    enabled: true
